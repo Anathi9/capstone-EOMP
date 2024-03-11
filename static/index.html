@@ -120,7 +120,7 @@
             <th>Description</th>
         </tr>
         <tr>
-            <td>/Orders </td>
+            <td>/:userID </td>
             <td>GET</td>
             <td>Retrieve orders</td>
         </tr>
@@ -130,17 +130,17 @@
             <td>Retrieve order by ID</td>
           </tr>
           <tr>
-            <td>/add order</td>
+            <td>/addOrder/:userID</td>
             <td>POST</td>
             <td>Create a new order</td>
           </tr>
           <tr>
-            <td>/update</td>
+            <td>/update/:id</td>
             <td>PATCH</td>
             <td>Update order</td>
           </tr>
           <tr>
-            <td>/order/:id</td>
+            <td>/:userID/:orderID</td>
             <td>DELETE</td>
             <td>Delete order by ID</td>
           </tr>

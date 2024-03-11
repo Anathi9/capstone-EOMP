@@ -13,7 +13,7 @@ orderRouter.get('/:userID', (req, res) => {
         res.json({
             status: res.statusCode,
             msg: 'Unable to retrieve orders',
-        });
+        }); 
     }
 });
 
