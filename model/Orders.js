@@ -1,15 +1,17 @@
+
 import { connection as db } from "../config/index.js";
-
 class Orders {
-    fetchOrders(req, res, userID) {
+    fetchOrders(req, res) {
         const qry = `
-            SELECT o.orderID, p.amount, o.quantity, (p.amount * o.quantity) AS Total
-            FROM Orders o
-            JOIN Products p ON o.prodID = p.prodID
-            WHERE o.userID = ?;
+            SELECT orderID,
+            userID,
+            prodID,
+            amount,
+            quantity,
+            total
+            FROM Orders;
         `;
-
-        db.query(qry, [userID], (err, results) => {
+        db.query(qry, (err, results) => {
             if (err) throw err;
             res.json({
                 status: res.statusCode,
@@ -17,15 +19,16 @@ class Orders {
             });
         });
     }
-
     fetchOrder(req, res) {
         const qry = `
-            SELECT orderID, userID, prodID, amount,
-            quantity, Total
-            FROM Orders
-            WHERE orderID = ${req.params.id};
+            SELECT orderID,
+            userID,
+            prodID,
+            amount,
+            quantity,
+            total
+            FROM Orders;
         `;
-
         db.query(qry, (err, result) => {
             if (err) throw err;
             res.json({
@@ -34,14 +37,12 @@ class Orders {
             });
         });
     }
-
-    addOrder(req, res, userID, prodID, quantity) {
+    addOrder(req, res) {
         const qry = `
-            INSERT INTO Orders (userID, prodID, quantity)
-            VALUES (?, ?, ?);
+            INSERT INTO Orders
+            SET ?;
         `;
-
-        db.query(qry, [userID, prodID, quantity], (err) => {
+        db.query(qry, [req.body], (err) => {
             if (err) throw err;
             res.json({
                 status: res.statusCode,
@@ -49,14 +50,12 @@ class Orders {
             });
         });
     }
-
     updateOrder(req, res) {
         const qry = `
             UPDATE Orders
             SET ?
             WHERE orderID = ${req.params.id};
         `;
-
         db.query(qry, [req.body], (err) => {
             if (err) throw err;
             res.json({
@@ -65,14 +64,12 @@ class Orders {
             });
         });
     }
-
-    deleteOrder(req, res, userID, orderID) {
+    deleteOrder(req, res) {
         const qry = `
             DELETE FROM Orders
-            WHERE orderID = ? AND userID = ?;
+            WHERE orderID = ${req.params.id};
         `;
-
-        db.query(qry, [userID, orderID], (err) => {
+        db.query(qry, (err) => {
             if (err) throw err;
             res.json({
                 status: res.statusCode,
@@ -81,5 +78,8 @@ class Orders {
         });
     }
 }
+export { 
+    Orders
+ }
 
-export { Orders};
+;

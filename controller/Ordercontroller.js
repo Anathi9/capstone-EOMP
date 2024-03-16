@@ -30,7 +30,7 @@ orderRouter.get('/:id', (req, res) => {
 });
 
 
-orderRouter.post('/addOrder/:userID', bodyParser.json(), (req, res) => {
+orderRouter.post('/addOrder', bodyParser.json(), (req, res) => {
     const userID = req.params.userID;
     const { prodID, quantity } = req.body;
     try {
@@ -71,3 +71,9 @@ orderRouter.delete('/:userID/:orderID', (req, res) => {
 export {
     orderRouter 
 };
+
+
+
+
+
+
