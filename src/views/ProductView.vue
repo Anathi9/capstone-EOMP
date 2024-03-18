@@ -1,28 +1,27 @@
 
 <template>
-  <div class="container app"> 
+  <div class="app"> 
     <div class="row">
       <h2>Single Product</h2>
     </div>
-    <div class="row"  v-if="product">
+    <div class="row justify-content-center"  v-if="product">
       <Card>
         <template #cardHeader>
-          <h4 class="card-title">{{ product.productName }}</h4>
+   
+          <img class="img-fluid" :src="product.prodImage" :alt="product.prodImage" width="200px" height="200px" />
         </template>
         <template #cardBody>
           <div>
-            <img class="img-fluid" :src="product.prodImage" :alt="product.productName" />
+            <h4 class="card-title">{{ product.productName }}</h4>
+            <p class="card-text text-dark p-2">
+           Amount: R{{ product.amount }}
+          </p>
+          <p class="card-text text-dark p-2">
+            prodDescription:{{ product.prodDescription }}
+          </p>
           </div>
-          <p class="card-text text-dark bg-gradient bg-dark-subtle p-2">
-            {{ product.ProdDescription }}
-          </p>
-          <p class="card-text text-dark bg-gradient bg-dark-subtle p-2">
-            Amount: R{{ product.amount }}
-          </p>
-          <p class="card-text text-dark bg-gradient bg-dark-subtle p-2">
-            Amount: R{{ product.prodDescription }}
-          </p>
-          <router-link to="/Products">Go back</router-link>
+          
+          <router-link to="/Products" class="btn btn-primary btn-sm">Go back</router-link>
         </template>
       </Card>
     </div>
@@ -58,7 +57,32 @@ export default {
 </script>
 
 <style scoped>  
-
+ .app {
+    background-color:   hsl(208, 30%, 89%);
+  }
+  
+  .centerCards {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .card {
+    background-color: white; 
+    margin-bottom: 15px;
+    
+  }
+  
+  @media screen and (max-width: 700px) {
+    .centerCards {
+      max-width: 700px; 
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    .centerCards {
+      max-width: 300px; 
+    }
+  }
 </style>
 
   
