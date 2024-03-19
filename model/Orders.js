@@ -6,9 +6,9 @@ class Orders {
             SELECT orderID,
             userID,
             prodID,
-            amount,
             quantity,
-            total
+            amount,
+            Total
             FROM Orders;
         `;
         db.query(qry, (err, results) => {
@@ -24,10 +24,10 @@ class Orders {
             SELECT orderID,
             userID,
             prodID,
-            amount,
             quantity,
-            total
-            FROM Orders;
+            amount,
+            Total
+            WHERE orderID = ${req.params.id};
         `;
         db.query(qry, (err, result) => {
             if (err) throw err;
