@@ -20,8 +20,8 @@
             prodDescription:{{ product.prodDescription }}
           </p>
           </div>
-          
-          <router-link to="/Products" class="btn btn-primary btn-sm">Go back</router-link>
+          <router-link to="/Products" class="btn btn-primary btn-sm">Go back</router-link> 
+          <router-link to="/Products" class="btn btn-primary btn-sm">Add to cart</router-link>
         </template>
       </Card>
     </div>

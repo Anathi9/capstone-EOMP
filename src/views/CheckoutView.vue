@@ -58,12 +58,14 @@
             orderID: null,
             userID: null,
             prodID: null,
-            quantity: null
+            quantity: null,
+            Total:null,
           },
           orders: []
         };
       },
       methods: {
+        
         addOrder() {
           const total = this.calculateTotal(this.order);
           this.orders.push({ ...this.order, total });

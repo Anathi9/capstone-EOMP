@@ -4,11 +4,26 @@
       <div class="container">
         <div class="register-container">
           <h2>Register</h2>
-          <form id="registerForm" @submit.prevent="register">
-            <input type="text" v-model="username" placeholder="Username" required>
-            <input type="email" v-model="emailAdd" placeholder="Email" required>
-            <input type="password" v-model="userPass" placeholder="Password" required>
-            <button type="submit">Register</button>
+          <form id="registerForm" >
+     
+  <input type="text" id="userName" v-model="payload.firstName" placeholder="Please enter your firstName" required>
+
+  <input type="text" id="userLastName" v-model="payload.lastName" placeholder="Please enter your LastName" required>
+
+
+  <input type="number" id="userAge" class="form-control mb-2" v-model="payload.userAge" placeholder="Please enter your Age" required>
+
+
+  <input type="text" id="userGender" v-model="payload.Gender" placeholder="Please enter your gender" required>
+
+
+  <input type="text" id="userRole" v-model="payload.userRole" placeholder="Please enter your Role" required>
+
+
+  <input type="text" id="userEmail" v-model="payload.emailAdd" placeholder="Please enter your emailAdd" required>
+
+  <input type="text" id="userPassword" v-model="payload.userPass" placeholder="Please enter your password" required>
+            <button @click.prevent="Register()" type="submit">Register</button>
           </form>
           <p>Already have an account? <router-link to="/login">Login here</router-link></p>
         </div>
@@ -20,14 +35,21 @@
   export default {
     data() {
       return {
-        username: '',
+        payload:
+        {
+          firstName:'',
+          lastName:'',
+          userAge:'',
+          Gender:'',
+          userRole:'',
         emailAdd: '',
         userPass: ''
+        }
       };
     },
     methods: {
-      register() {
-        
+      Register() {
+        this.$store.dispatch("register", this.payload)
       }
     }
   };

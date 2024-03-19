@@ -343,45 +343,62 @@ export default createStore({
         });
       }
     },
-  },
-
-
-  async Login(context, payload) {
-    try {
-      let { msg, result, token } = (
-        await axios.post(`${lifeURL}users/login`, payload)
-      ).data;
-      if (result) {
-        context.commit("setUser", { msg, result });
-        cookies.set("LoggedUser", { token, msg, result });
-        // Authorization
-        AuthenticateUser.applyToken(token);
+    async Login(context, payload) {
+      try {
+        let { msg, result, token } = (
+          await axios.post(`${lifeURL}users/login`, payload)
+        ).data;
+        if (result) {
+        
+          context.commit("setUser", { msg, result });
+          cookies.set("LoggedUser", { token, msg, result });
+          // Authorization
+          AuthenticateUser.applyToken(token);
+          sweet({
+            title: msg,
+            text: `Welcome Back,
+            ${result?.firstName} ${result?.lastName}`,
+            icon: "success",
+            timer: 2000,
+          });
+          router.push({ name: "home" });
+        } else {
+          sweet({
+            title: "Login",
+            text: msg,
+            icon: "error",
+            timer: 2000,
+          });
+        }
+      } catch (e) {
+        //'Please contact the administrator'
         sweet({
-          title: msg,
-          text: `Welcome Back,
-          ${result?.firstName} ${result?.lastName}`,
-          icon: "success",
-          timer: 2000,
-        });
-        router.push({ name: "home" });
-      } else {
-        sweet({
-          title: "Login",
-          text: msg,
+          title: "Error",
+          text: e.message,
           icon: "error",
           timer: 2000,
         });
       }
-    } catch (e) {
-      //'Please contact the administrator'
-      sweet({
-        title: "Error",
-        text: e.message,
-        icon: "error",
-        timer: 2000,
-      });
-    }
+    },
+    async fetchOrders(context,id) {
+      try {
+        let { results } = (await axios.get(`${lifeURL}orders/${id}`)).data
+        if (results) {
+          context.commit('setOrders', results)
+        }
+      } catch (e) {
+        sweet({
+          title: 'Error',
+          text: e.message,
+          icon: "error",
+          timer: 2000
+        })
+      }
+    },
+   
   },
+
+
   modules: {}
 })
 

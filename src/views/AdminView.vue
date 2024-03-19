@@ -2,9 +2,8 @@
 <template>
 <div class="app"> 
   <h3 class="user1 text-center">Users</h3>
- 
-  
-<div class="product-inputs container pt-5 styling">
+              <div class="container styling">
+  <div class="product-inputs">
   <label for="userName">FirstName</label>
   <input type="text" id="userName" v-model="userPayload.firstName" required>
 
@@ -15,7 +14,7 @@
   <input type="number" id="userAge" v-model="userPayload.userAge" required>
 
   <label for="userGender">Gender</label>
-  <input type="text" id="userGender" v-model="userPayload.gender" required>
+  <input type="text" id="userGender" v-model="userPayload.Gender" required>
 
   <label for="userRole">userRole</label>
   <input type="text" id="userRole" v-model="userPayload.userRole" required>
@@ -24,7 +23,7 @@
   <input type="text" id="userEmail" v-model="userPayload.emailAdd" required>
 
   <label for="userPassword">Password</label>
-  <input type="text" id="userPassword" v-model="userPayload.userPass" required>
+  <input type="text" id="userPassword" v-model="userPayload.userPass" placeholder="Please enter your" required>
 
   <button class="btn btn-success" @click.prevent="addUser">Add New User</button>
   <br><br>
@@ -34,9 +33,10 @@
 
 
 
+
   <div class="container">
     <div class="table-container pt-5">
-      <table class="table ">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">User ID</th>
@@ -56,7 +56,7 @@
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
             <td>{{ user.userAge }}</td>
-            <td>{{ user.gender }}</td>
+            <td>{{ user.Gender }}</td>
             <td>{{ user.emailAdd }}</td>
             <td>{{ user.userRole }}</td>
             <td>
@@ -83,6 +83,7 @@
       </table>
 
     </div>
+  </div>
   </div>
 
 <h3 class="prod3 text-center">Products</h3>
@@ -193,12 +194,15 @@ userPayload: {
   firstName: null,
   lastName: null,
   userAge: null,
-  gender: null,
+  Gender: null,
   emailAdd: null,
   userRole: null,
   userPass: null,
 },
-selectedUser: null,
+selectedUser:
+{
+  userPass:null
+},
 selectedProduct: null
 
 };
@@ -242,7 +246,7 @@ emailAdd: null,
 userRole: null,
 userPass: null
   };
-}
+} 
 },
 editProduct(item) {
   this.selectedProduct = { ...item };
@@ -302,9 +306,9 @@ this.$store.dispatch("fetchProducts");
 
 </script>
 <style scoped>
-.app {
+/* .app {
    background-color:  hsl(208, 30%, 89%);
- }
+ } */
  .user1 {
    color: indigo;
    padding-top:5%
@@ -326,16 +330,28 @@ this.$store.dispatch("fetchProducts");
    border-radius: 5px;
  }
 
- .table-container {
-   overflow-x: auto;
+ table {
+  width: 100%;
+  border-collapse: collapse
  }
 
- .pt-5 {
+ th, td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+ }
+
+ .table-container {
+   overflow-x: auto;
+   width: 100%;
+ }
+
+ /* .pt-5 {
   padding-top: 20px;
  } .container {
     max-width: 800px;
     margin: 0 auto;
-  }
+  } */
  
  .order-inputs {
     margin-bottom: 20px;
@@ -388,7 +404,7 @@ this.$store.dispatch("fetchProducts");
    padding: 8px;   margin: 8px 0;
    box-sizing: border-box;
  }
-</style>
+</style> 
 
 
 
@@ -398,4 +414,5 @@ this.$store.dispatch("fetchProducts");
 
 
  
+
 

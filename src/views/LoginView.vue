@@ -10,6 +10,7 @@
             <button type="submit">Login</button>
           </form>
           <p>Don't have an account? <router-link to="/register">Register here</router-link></p>
+       
         </div>
       </div>
     </div>
@@ -26,7 +27,7 @@
     },
     methods: {
       login() {
-        this.$store.dispatch('login', { emailAdd: this.emailAdd, userPass: this.userPass });
+        this.$store.dispatch('Login', { emailAdd: this.emailAdd, userPass: this.userPass });
         this.$router.push('/');
       },
     },

@@ -1,6 +1,5 @@
 
 <template>
-    
   <Spinner v-if="loading"/>
   <div class="something" v-else>
 
@@ -163,3 +162,7 @@ data() {
 }
 
 </script>
+
+
+
+
