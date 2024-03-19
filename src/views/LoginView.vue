@@ -29,9 +29,12 @@
       login() {
         this.$store.dispatch('Login', { emailAdd: this.emailAdd, userPass: this.userPass });
         this.$router.push('/');
+      
       },
     },
   };
+  
+
   </script>
   
   <style scoped>
@@ -94,4 +97,7 @@
     align-items: center;
   }
   </style>
+  
+
+
   
