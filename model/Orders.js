@@ -4,13 +4,23 @@ import { connection as db } from "../config/index.js";
 class Orders {
     fetchOrders(req, res) {
         const qry = `
-            SELECT orderID,
-            userID,
-            prodID,
-            quantity,
-            amount,
-            Total
-            FROM Orders;
+            SELECT 
+                Orders.orderID,
+                Orders.userID,
+                Users.firstName,
+                Users.lastName,
+                Orders.prodID,
+                Products.productName,
+                Orders.quantity,
+                Orders.amount,
+                Orders.orderDate,
+                Orders.Total
+            FROM 
+                Orders
+            INNER JOIN 
+                Users ON Orders.userID = Users.userID
+            INNER JOIN 
+                Products ON Orders.prodID = Products.prodID;
         `;
         db.query(qry, (err, results) => {
             if (err) throw err;
@@ -23,16 +33,20 @@ class Orders {
 
     fetchOrder(req, res) {
         const qry = `
-            SELECT orderID,
-            userID,
-            prodID,
-            quantity,
-            amount,
-            Total
-            FROM Orders
-            WHERE orderID = ${req.params.id};
+            SELECT 
+                orderID,
+                userID,
+                prodID,
+                quantity,
+                amount,
+                orderDate,
+                Total
+            FROM 
+                Orders
+            WHERE 
+                orderID = ?;
         `;
-        db.query(qry, (err, result) => {
+        db.query(qry, [req.params.id], (err, result) => {
             if (err) throw err;
             res.json({
                 status: res.statusCode,
@@ -44,8 +58,10 @@ class Orders {
     addOrder(req, res) {
         const { userID, prodID, quantity, amount, Total } = req.body;
         const qry = `
-            INSERT INTO Orders (userID, prodID, quantity, amount, Total)
-            VALUES (?, ?, ?, ?, ?);
+            INSERT INTO 
+                Orders (userID, prodID, quantity, amount, Total)
+            VALUES 
+                (?, ?, ?, ?, ?);
         `;
         db.query(qry, [userID, prodID, quantity, amount, Total], (err) => {
             if (err) throw err;
@@ -59,9 +75,12 @@ class Orders {
     updateOrder(req, res) {
         const { userID, prodID, quantity, amount, Total } = req.body;
         const qry = `
-            UPDATE Orders
-            SET userID = ?, prodID = ?, quantity = ?, amount = ?, Total = ?
-            WHERE orderID = ?;
+            UPDATE 
+                Orders
+            SET 
+                userID = ?, prodID = ?, quantity = ?, amount = ?, Total = ?
+            WHERE 
+                orderID = ?;
         `;
         db.query(qry, [userID, prodID, quantity, amount, Total, req.params.id], (err) => {
             if (err) throw err;
@@ -74,8 +93,10 @@ class Orders {
 
     deleteOrder(req, res) {
         const qry = `
-            DELETE FROM Orders
-            WHERE orderID = ?;
+            DELETE FROM 
+                Orders
+            WHERE 
+                orderID = ?;
         `;
         db.query(qry, [req.params.id], (err) => {
             if (err) throw err;
@@ -88,3 +109,7 @@ class Orders {
 }
 
 export { Orders };
+
+
+
+

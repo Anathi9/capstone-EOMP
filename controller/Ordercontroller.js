@@ -55,7 +55,7 @@ orderRouter.patch('/update/:id', bodyParser.json(), (req, res) => {
 });
 
 
-orderRouter.delete('/orderID', (req, res) => {
+orderRouter.delete('/:userID/:orderID', (req, res) => {
     const userID = req.params.userID;
     const orderID = req.params.orderID;
     try {
