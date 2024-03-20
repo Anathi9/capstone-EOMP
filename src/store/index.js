@@ -380,9 +380,9 @@ export default createStore({
         });
       }
     },
-    async fetchOrders(context,id) {
+    async fetchOrders(context) {
       try {
-        let { results } = (await axios.get(`${lifeURL}orders/${id}`)).data
+        let { results } = (await axios.get(`${lifeURL}orders`)).data
         if (results) {
           context.commit('setOrders', results)
         }

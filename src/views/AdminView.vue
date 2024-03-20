@@ -2,7 +2,7 @@
 <template>
 <div class="app"> 
   <h3 class="user1 text-center">Users</h3>
-              <div class="container styling">
+              <div class=" container styling">
   <div class="product-inputs">
   <label for="userName">FirstName</label>
   <input type="text" id="userName" v-model="userPayload.firstName" required>
@@ -25,17 +25,22 @@
   <label for="userPassword">Password</label>
   <input type="text" id="userPassword" v-model="userPayload.userPass" placeholder="Please enter your" required>
 
-  <button class="btn btn-success" @click.prevent="addUser">Add New User</button>
+  <!-- <button class="btn btn-primary " @click.prevent="addUser">AddUser</button>
   <br><br>
-  <button class="btn btn-success" @click="updateUser">Update User</button>
-
+  <button class="btn btn-primary " @click="updateUser">UpdateUser</button> -->
+  <div class="btn-container">
+        <button class="btn btn-primary" @click.prevent="addUser">Add New User</button>
+      </div>
+      <div class="btn-container">
+        <button class="btn btn-primary" @click="updateUser">Update User</button>
+      </div>
 </div>
 
 
 
 
   <div class="container">
-    <div class="table-container pt-5">
+    <div class="table pt-5">
       <table class="table">
         <thead>
           <tr>
@@ -108,10 +113,10 @@
     <input type="text" id="prodDescription" v-model="payload.prodDescription" required>
 
   </div>
-  <button class="btn btn-success" @click.prevent="addProduct">Add Product</button>
-  <br>
-  <br>
-  <button class="btn btn-success" @click="updateProduct">Update Product</button>
+  <button class="btn btn-primary" @click.prevent="addProduct">Add Product</button>
+  <!-- <br>
+  <br> -->
+  <button class="btn btn-primary" @click="updateProduct">Update Product</button>
 
 </div>
 
@@ -306,105 +311,93 @@ this.$store.dispatch("fetchProducts");
 
 </script>
 <style scoped>
-/* .app {
-   background-color:  hsl(208, 30%, 89%);
- } */
- .user1 {
-   color: indigo;
-   padding-top:5%
- }
-
- .prod3 {
-   color: indigo;
-   padding-bottom:4%
- }
-
- .styling {
-   background-color: white;
+.app {
+  background-color: #f0f0f0;
   padding: 20px;
+}
+
+.styling {
+  background-color: hwb(210 81% 17%);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+}
+.product-inputs {
+  display: flex;
+ flex-wrap: wrap;
+}
+
+.product-inputs label {
+  flex:  0 0 25%;
+  margin-right: 10px;
+}
+
+.product-inputs input {
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+  padding: 8px;
   border-radius: 5px;
- }
+  border: 1px solid rgb(196, 197, 199);
 
- .product-inputs {
-  background-color: white;   padding: 20px;
-   border-radius: 5px;
- }
+}
 
- table {
+.product-inputs button {
+  flex: auto;
+  margin-top: 10px;
+   padding:auto; 
+   border-radius: 5px; 
+  border: none;
+  background-color: hsl(0, 0%, 77%);
+  color: #fff;
+  cursor: pointer;
+}
+
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.table {
   width: 100%;
-  border-collapse: collapse
- }
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
- th, td {
-  border: 1px solid black;
+th,
+td {
+  border: 1px solid #dddddd;
   padding: 8px;
   text-align: left;
- }
+}
 
- .table-container {
-   overflow-x: auto;
-   width: 100%;
- }
+th {
+  background-color: hsl(220, 2%, 73%);
+}
 
- /* .pt-5 {
-  padding-top: 20px;
- } .container {
-    max-width: 800px;
-    margin: 0 auto;
-  } */
- 
- .order-inputs {
-    margin-bottom: 20px;
- }
- 
-  .table-container {
-    overflow-x: auto;
-  }
- 
- .table-bordered {
-    border: 1px solid #dee2e6;
-   border-collapse: collapse;
-    width: 100%;
-    text-align: center; 
- }
- 
-  .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #dee2e6;
-    padding:8px; 
-  }
- 
-  .table-bordered th {
-    background-color: #f8f9fa; 
-  }
-  .btn {
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-right: 5px;
- }
- 
-  .btn-success {
-    background-color: #28a745;
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+.btn-container {
     color: #fff;
+    margin-left: 10px;
   }
- 
-  .btn-info {
-    background-color: #17a2b8;
+
+  .btn-primary {
+    background-color: rgb(81, 84, 85);
     color: #fff;
+    margin-right: 10px;
   }
+
+</style>
+
  
-  .btn-danger {
-    background-color: #dc3545;
-   color: #fff;
- }
- 
- input[type="text"],
-  input[type="number"] {
-    width: 100%;
-   padding: 8px;   margin: 8px 0;
-   box-sizing: border-box;
- }
-</style> 
 
 
 

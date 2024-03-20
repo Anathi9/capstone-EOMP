@@ -15,6 +15,12 @@
       
             <label for="quantity">Quantity</label>
             <input type="number" id="quantity" v-model="order.quantity" required>
+
+            <label for="quantity">Amount</label>
+            <input type="number" id="quantity" v-model="order.amount" required>
+
+            <label for="quantity">OrderDate</label>
+            <input type="number" id="quantity" v-model="order.orderDate" required>
       
             <button class="btn btn-success" @click="addOrder">Add Order</button>
           </div>
@@ -27,6 +33,8 @@
                   <th>UserID</th>
                   <th>ProductID</th>
                   <th>Quantity</th>
+                  <th>Amount</th>
+                  <th>orderDate</th>
                   <th>Total</th>
                   <th>Action</th>
                 </tr>
@@ -37,6 +45,8 @@
                   <td>{{ order.userID }}</td>
                   <td>{{ order.prodID }}</td>
                   <td>{{ order.quantity }}</td>
+                  <td>{{ order.amount }}</td>
+                  <td>{{ order.orderDate }}</td>
                   <td>{{ calculateTotal(order) }}</td>
                   <td>
                     <button class="btn btn-info" @click="editOrder(order)">Edit</button>
