@@ -1,4 +1,4 @@
- 
+  
 <template>
 <div class="app"> 
   <h3 class="user1 text-center">Users</h3>
@@ -20,20 +20,15 @@
   <input type="text" id="userRole" v-model="userPayload.userRole" required>
 
   <label for="userEmail">Email</label>
-  <input type="text" id="userEmail" v-model="userPayload.emailAdd" required>
+  <input type="text" id="userEmail" v-model="userPayload.emailAdd" placeholder="please enter your email" required>
 
   <label for="userPassword">Password</label>
-  <input type="text" id="userPassword" v-model="userPayload.userPass" placeholder="Please enter your" required>
+  <input type="text" id="userPassword" v-model="userPayload.userPass" placeholder="Please enter your password" required>
 
-  <!-- <button class="btn btn-primary " @click.prevent="addUser">AddUser</button>
+  <button class="btn btn-primary " @click.prevent="addUser">AddUser</button>
   <br><br>
-  <button class="btn btn-primary " @click="updateUser">UpdateUser</button> -->
-  <div class="btn-container">
-        <button class="btn btn-primary" @click.prevent="addUser">Add New User</button>
-      </div>
-      <div class="btn-container">
-        <button class="btn btn-primary" @click="updateUser">Update User</button>
-      </div>
+  <button class="btn btn-primary " @click="updateUser">UpdateUser</button>
+  
 </div>
 
 
@@ -113,10 +108,10 @@
     <input type="text" id="prodDescription" v-model="payload.prodDescription" required>
 
   </div>
-  <button class="btn btn-primary" @click.prevent="addProduct">Add Product</button>
-  <!-- <br>
-  <br> -->
-  <button class="btn btn-primary" @click="updateProduct">Update Product</button>
+  <button class="btn btn-dark " @click.prevent="addProduct">Add Product</button>
+  <br>
+  <br>
+  <button class="btn btn-dark" @click="updateProduct">Update Product</button>
 
 </div>
 
@@ -332,24 +327,25 @@ this.$store.dispatch("fetchProducts");
   margin-right: 10px;
 }
 
-.product-inputs input {
+/* .product-inputs input {
   flex: 0 0 auto;
   margin-bottom: 10px;
   padding: 8px;
   border-radius: 5px;
   border: 1px solid rgb(196, 197, 199);
 
-}
+} */
 
 .product-inputs button {
-  flex: auto;
+ 
   margin-top: 10px;
    padding:auto; 
    border-radius: 5px; 
   border: none;
   background-color: hsl(0, 0%, 77%);
-  color: #fff;
+  color: #232222;
   cursor: pointer;
+  margin-right: 5%;
 }
 
 
@@ -376,25 +372,26 @@ th {
   background-color: hsl(220, 2%, 73%);
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+
+.product-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-tbody tr:hover {
-  background-color: #f2f2f2;
+.product-inputs label {
+  flex: 0 0 calc(30% - 10px);
+  max-width: calc(30% - 10px);
+  font-weight: bold;
 }
 
-.btn-container {
-    color: #fff;
-    margin-left: 10px;
-  }
-
-  .btn-primary {
-    background-color: rgb(81, 84, 85);
-    color: #fff;
-    margin-right: 10px;
-  }
-
+.product-inputs input {
+  flex: 0 0 calc(70% - 10px);
+  max-width: calc(50% - 10px);
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
 </style>
 
  
@@ -404,8 +401,5 @@ tbody tr:hover {
 
 
 
-
-
- 
 
 
