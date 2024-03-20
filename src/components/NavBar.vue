@@ -1,4 +1,4 @@
-<template>
+ <template>
     <nav class="navbar navbar-expand-lg navbar-light  sticky-top" style="height: 100px; background:indigo;">
       <div class="container">
         <a class="navbar-brand text-light" href="#">Sparkle Clean</a>
@@ -13,14 +13,14 @@
             <li  class="nav-item">
               <router-link :to="'/about'" class="nav-link text-light">About</router-link>
             </li>
-  
-            <li  class="nav-item">
+           
+            <li  class="nav-item"  v-show="user">
               <router-link :to="'/products'" class="nav-link text-light">Products</router-link>
             </li>
             <li  class="nav-item">
               <router-link :to="'/admin'" class="nav-link text-light">Admin</router-link>
             </li>
-            <li  class="nav-item">
+            <li  class="nav-item" v-show="user">
               <router-link :to="'/checkout'" class="nav-link text-light">Checkout</router-link>
             </li>
             <li  class="nav-item">
@@ -39,6 +39,16 @@
   
   
   <script>
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+export default {
+ 
+  computed: {
+    user() {
+            return this.$store.state.user || cookies?.get("LoggedUser")
+        }
+}
+}
   
   </script>
   
@@ -54,8 +64,9 @@
                       margin-right:0;
                   }
               }
-  </style> 
+  </style>  
 
+  
   
   
   
