@@ -63,7 +63,8 @@ export default {
   .img-container {
     max-width: 300px; 
   }
-}
-</style>
+} 
+ </style>
+
 
 
