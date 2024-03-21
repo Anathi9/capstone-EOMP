@@ -60,9 +60,9 @@
       </div>
     </template>
     
-    <script>
+   <script>
     
-// import { mapState, mapActions } from 'vuex';
+
     export default {
       data() {
         return {
@@ -104,17 +104,7 @@
             quantity: null
           };
         },
-  //       computed: {
-  //   ...mapState(['orders'])
-  // },
-  // methods: {
-  //   ...mapActions(['fetchOrders']),
-  // },
  
-  // created() {
-  //   const userID = 'user ID';
-  //   this.fetchOrdersForUser(userID);
-  // },
       }
     };
     </script>
@@ -182,4 +172,6 @@
       box-sizing: border-box;
     }
     </style>
+    
+
     

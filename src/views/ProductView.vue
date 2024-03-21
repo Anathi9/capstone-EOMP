@@ -23,7 +23,7 @@
       </Card>
     </div>
     <div v-else>
-      <h1>No Product found</h1>
+      <h4>No Product found</h4>
     </div>
   </div>
 </template>

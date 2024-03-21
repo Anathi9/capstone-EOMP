@@ -14,7 +14,7 @@ export default createStore({
     user: null,
     products: null,
     product: null,
-    orders:null
+    orders:[],
   },
   getters: {},
   mutations: {
@@ -160,37 +160,37 @@ export default createStore({
         });
       }
     },
-    async login(context, payload) {
-      try {
-        const { msg, token, result } = (await axios.post(`${lifeURL}users/login`, payload)).data
-        if (result) {
-          context.commit('setUser', { msg, result })
-          AuthenticateUser.applyToken(token)
-          sweet({
-            title: msg,
-            text: `Welcome back,
-          ${result?.firstName} ${result?.lastName}`,
-            icon: "success",
-            timer: 2000
-          })
-          router.push({ name: 'home' })
-        } else {
-          sweet({
-            title: 'info',
-            text: msg,
-            icon: "info",
-            timer: 2000
-          })
-        }
-      } catch (e) {
-        sweet({
-          title: 'Error',
-          text: 'Failed to login.',
-          icon: "error",
-          timer: 2000
-        })
-      }
-    },
+    // async login(context, payload) {
+    //   try {
+    //     const { msg, token, result } = (await axios.post(`${lifeURL}users/login`, payload)).data
+    //     if (result) {
+    //       context.commit('setUser', { msg, result })
+    //       AuthenticateUser.applyToken(token)
+    //       sweet({
+    //         title: msg,
+    //         text: `Welcome back,
+    //       ${result?.firstName} ${result?.lastName}`,
+    //         icon: "success",
+    //         timer: 2000
+    //       })
+    //       router.push({ name: 'home' })
+    //     } else {
+    //       sweet({
+    //         title: 'info',
+    //         text: msg,
+    //         icon: "info",
+    //         timer: 2000
+    //       })
+    //     }
+    //   } catch (e) {
+    //     sweet({
+    //       title: 'Error',
+    //       text: 'Failed to login.',
+    //       icon: "error",
+    //       timer: 2000
+    //     })
+    //   }
+    // },
     async fetchProducts(context) {
       try {
         let { results } = (await axios.get(`${lifeURL}products`)).data
@@ -262,31 +262,7 @@ export default createStore({
         });
       }
     },
-    // async updateProduct(context, payload) {
-    //   try {
-    //     let { msg } = await (await axios.patch(`${lifeURL}products/update/${payload.id}`)).data;
-    
-    //     if (msg) {
-    //       context.dispatch('fetchProducts');
-    //       sweet({
-    //         title: 'Update product',
-    //         text: msg,
-    //         icon: 'success',
-    //         timer: 2000,
-    //       });
-    
-    //       window.location.reload();
-    //     }
-    //   } catch (e) {
-    //     sweet({
-    //       title: 'Error',
-    //       text: 'An error occurred when updating a product.',
-    //       icon: 'error',
-    //       timer: 2000,
-    //     });
-    //   }
-    // },
-    
+ 
 
     async updateProduct(context, payload) {
       try {
@@ -402,21 +378,44 @@ export default createStore({
   //   }
   // },
    
-  async fetchOrders(context, userID) {
+  
+
+  async fetchOrders(context) {
     try {
-      const response = await axios.get(`${lifeURL}orders/${userID}`);
-      const orders = response.data;
-      context.commit('setOrders', orders);
-    } catch (error) {
-      console.error('Error fetching orders:', error);
+      let { results } = (await axios.get(`${lifeURL}orders`)).data;
+      if (results) {
+        context.commit("setOrders", results);
+      }
+    } catch (e) {
+      sweet({
+        title: "Error",
+        text: "An error occurred when retrieving cart items.",
+        icon: "error",
+        timer: 2000,
+      });
+    }
+  },
+  async deleteOrders(context, orderID) {
+    try {
+      let { msg } = await axios.delete(`${lifeURL}orders/delete/${orderID}`);
+      context.dispatch("fetchOrders");
+      sweet({
+        title: 'Delete order',
+        text: msg,
+        icon:'success',
+        timer: 2000
+      });
+    } catch (e) {
       sweet({
         title: 'Error',
-        text: 'Failed to fetch orders. Please try again later.',
+        text: 'An error appeared when deleting an order.',
         icon: 'error',
         timer: 2000
       });
     }
-  }},
+  }
+},
+
 
 
   modules: {}
