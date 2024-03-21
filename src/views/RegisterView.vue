@@ -11,7 +11,7 @@
   <input type="text" id="userLastName" v-model="payload.lastName" placeholder="LastName" required>
 
 
-  <input type="number" id="userAge" class="form-control mb-2" v-model="payload.userAge" placeholde="userAge" required>
+  <input type="number" id="userAge" class="form-control mb-2" v-model="payload.userAge" placeholder="userAge" required>
 
 
   <input type="text" id="userGender" v-model="payload.Gender" placeholder="Gender" required>

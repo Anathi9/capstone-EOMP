@@ -2,7 +2,7 @@
     <template>
       <div class="app">
         <div class="container">
-          <h2 class="text-center">Order</h2>
+          <h2 class="text-center">Orders</h2>
           <div class="order-inputs">
             <label for="orderID">OrderID</label>
             <input type="text" id="orderID" v-model="order.orderID" required>
@@ -61,6 +61,8 @@
     </template>
     
     <script>
+    
+// import { mapState, mapActions } from 'vuex';
     export default {
       data() {
         return {
@@ -101,7 +103,18 @@
             prodID: null,
             quantity: null
           };
-        }
+        },
+  //       computed: {
+  //   ...mapState(['orders'])
+  // },
+  // methods: {
+  //   ...mapActions(['fetchOrders']),
+  // },
+ 
+  // created() {
+  //   const userID = 'user ID';
+  //   this.fetchOrdersForUser(userID);
+  // },
       }
     };
     </script>

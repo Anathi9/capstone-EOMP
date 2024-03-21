@@ -14,7 +14,7 @@ export default createStore({
     user: null,
     products: null,
     product: null,
-    orders: null
+    orders:null
   },
   getters: {},
   mutations: {
@@ -384,23 +384,39 @@ export default createStore({
         });
       }
     },
-    async fetchOrders(context) {
-      try {
-        let { results } = (await axios.get(`${lifeURL}orders`)).data
-        if (results) {
-          context.commit('setOrders', results)
-        }
-      } catch (e) {
-        sweet({
-          title: 'Error',
-          text: e.message,
-          icon: "error",
-          timer: 2000
-        })
-      }
-    },
+  // async fetchOrders(context) {
+  //   try {
+  //     let { results } = (await axios.get(`${lifeURL}orders`)).data;
+  //     console.log(results);
+  //     if (results) {
+  //       context.commit('setOrders', results);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching orders:', error);
+  //     sweet({
+  //       title: 'Error',
+  //       text: 'An error occurred when fetching orders.',
+  //       icon: "error",
+  //       timer: 2000
+  //     });
+  //   }
+  // },
    
-  },
+  async fetchOrders(context, userID) {
+    try {
+      const response = await axios.get(`${lifeURL}orders/${userID}`);
+      const orders = response.data;
+      context.commit('setOrders', orders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      sweet({
+        title: 'Error',
+        text: 'Failed to fetch orders. Please try again later.',
+        icon: 'error',
+        timer: 2000
+      });
+    }
+  }},
 
 
   modules: {}
