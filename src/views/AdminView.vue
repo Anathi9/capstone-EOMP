@@ -307,12 +307,12 @@ this.$store.dispatch("fetchProducts");
 </script>
 <style scoped>
 .app {
-  background-color: #f0f0f0;
+  background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
   padding: 20px;
 }
 
 .styling {
-  background-color: hwb(210 81% 17%);
+  background-color: lightblue;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 5px;
@@ -327,14 +327,6 @@ this.$store.dispatch("fetchProducts");
   margin-right: 10px;
 }
 
-/* .product-inputs input {
-  flex: 0 0 auto;
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid rgb(196, 197, 199);
-
-} */
 
 .product-inputs button {
  
@@ -392,7 +384,7 @@ th {
   box-sizing: border-box;
   margin-bottom: 10px;
 }
-</style> -->
+</style> 
 
  
 

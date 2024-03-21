@@ -108,7 +108,7 @@
     
     <style scoped>
     .app {
-      background-color: hsl(208, 30%, 89%);
+      background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
     }
     .container {
       max-width: 800px;

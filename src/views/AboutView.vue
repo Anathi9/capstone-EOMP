@@ -28,9 +28,11 @@ export default {
 </script>
 
 <style scoped>
-.app {
-  background-color:  hsl(208, 30%, 89%);
-}
+ .app {
+   background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
+   color:white;
+
+  }
 
 .img-container {
   position: relative;

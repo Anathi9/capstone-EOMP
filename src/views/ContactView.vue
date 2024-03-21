@@ -44,7 +44,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: hsl(208, 30%, 89%); 
+    background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
     color: black; 
   }
 
@@ -82,6 +82,7 @@
 
   .icons {
     margin-top: 20px;
+    
   }
 
   .icons a {
@@ -93,10 +94,12 @@
     height: 40px;
     border-radius: 50%;
     transition: transform 0.3s ease;
+    
   }
 
   .icons img.social:hover {
     transform: scale(1.2);
+ 
   }
 </style>
 

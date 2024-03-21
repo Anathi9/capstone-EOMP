@@ -57,7 +57,7 @@
   
   <style scoped>
   .app {
-    background-color: hsl(208, 30%, 89%);
+    background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
   }
   
   .container {
@@ -69,10 +69,10 @@
   
   .register-container {
     width: 300px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    background-color: hsl(236, 43%, 81%);
     text-align: center;
   }
   
@@ -82,9 +82,10 @@
   button {
     width: 100%;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 2px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 2px;
+   
   }
   
   button {

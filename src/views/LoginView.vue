@@ -90,7 +90,7 @@
   
   
   #app {
-    background-color: hsl(208, 30%, 89%); 
+    background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg'); 
     min-height: 100vh;
     display: flex;
     justify-content: center;

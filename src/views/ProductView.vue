@@ -7,13 +7,13 @@
     <div class="row justify-content-center" v-if="product">
       <Card>
         <template #cardHeader>
-          <img class="img-fluid" :src="product.prodImage" :alt="product.prodImage" width="200px" height="200px" />
+          <img class="img-fluid" :src="product.prodImage" :alt="product.prodImage" loading="lazy"/>
         </template>
         <template #cardBody>
           <div>
             <h4 class="card-title">{{ product.productName }}</h4>
-            <p class="card-text text-dark p-2">Amount: R{{ product.amount }}</p>
-            <p class="card-text text-dark p-2">prodDescription:{{ product.prodDescription }}</p>
+            <p class="card-text text-white p-2">Amount: R{{ product.amount }}</p>
+            <p class="card-text text-white p-2">prodDescription:{{ product.prodDescription }}</p>
           </div>
           <div class="d-flex justify-content-between mt-3">
             <router-link to="/Products" class="btn btn-primary btn-sm">Go back</router-link>
@@ -52,14 +52,38 @@ export default {
 </script>
 
 <style scoped>
-
 .app {
- background-color:hsl(208, 30%, 89%);
- justify-content: center;
-  };
+  background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
+  justify-content: center;
+}
 
-.card-body {
-  margin-bottom: 10px;
+.card {
+  background-color: hwb(221 4% 56%);
+  border-radius: 10px;
+  max-width: 250px; 
+  margin: 30px; 
+  padding:15px;
+ 
+}
+
+.card-title {
+  color: white;
+}
+
+.card-text {
+  color: white;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: indigo;
+}
+
+.btn-primary:hover {
+  background-color: purple;
 }
 </style>
 

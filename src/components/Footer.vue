@@ -32,7 +32,7 @@ export default{
 </script>
 <style>
 .footer {
-            background-color:indigo;
+            background-color:navy;
             color: #fff;
             padding: 5px 0;
             text-align: center;
