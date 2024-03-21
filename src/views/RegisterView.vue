@@ -6,23 +6,23 @@
           <h2>Register</h2>
           <form id="registerForm" >
      
-  <input type="text" id="userName" v-model="payload.firstName" placeholder="Please enter your firstName" required>
+  <input type="text" id="userName" v-model="payload.firstName" placeholder="firstName" required>
 
-  <input type="text" id="userLastName" v-model="payload.lastName" placeholder="Please enter your LastName" required>
-
-
-  <input type="number" id="userAge" class="form-control mb-2" v-model="payload.userAge" placeholder="Please enter your Age" required>
+  <input type="text" id="userLastName" v-model="payload.lastName" placeholder="LastName" required>
 
 
-  <input type="text" id="userGender" v-model="payload.Gender" placeholder="Please enter your gender" required>
+  <input type="number" id="userAge" class="form-control mb-2" v-model="payload.userAge" placeholde="userAge" required>
 
 
-  <input type="text" id="userRole" v-model="payload.userRole" placeholder="Please enter your Role" required>
+  <input type="text" id="userGender" v-model="payload.Gender" placeholder="Gender" required>
 
 
-  <input type="text" id="userEmail" v-model="payload.emailAdd" placeholder="Please enter your emailAdd" required>
+  <input type="text" id="userRole" v-model="payload.userRole" placeholder="Role" required>
 
-  <input type="text" id="userPassword" v-model="payload.userPass" placeholder="Please enter your password" required>
+
+  <input type="text" id="userEmail" v-model="payload.emailAdd" placeholder=" emailAdd" required>
+
+  <input type="text" id="userPassword" v-model="payload.userPass" placeholder="password" required>
             <button @click.prevent="Register()" type="submit">Register</button>
           </form>
           <p>Already have an account? <router-link to="/login">Login here</router-link></p>
