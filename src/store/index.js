@@ -13,7 +13,8 @@ export default createStore({
     users: null,
     user: null,
     products: null,
-    product: null
+    product: null,
+    orders: null
   },
   getters: {},
   mutations: {
@@ -28,6 +29,9 @@ export default createStore({
     },
     setProduct(state, value) {
       state.product = value
+    },
+    setOrders(state, value) {
+      state.orders = value
     },
   },
   actions: {
