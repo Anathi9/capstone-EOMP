@@ -23,6 +23,8 @@
             <input type="number" id="quantity" v-model="order.orderDate" required>
       
             <button class="btn btn-success" @click="addOrder">Add Order</button>
+            <button class="btn btn-primary btn-action" @click="thankYouMessage">Thank You</button>
+                  
           </div>
       
           <div class="table-container mt-5">
@@ -50,7 +52,11 @@
                   <td>{{ calculateTotal(order) }}</td>
                   <td>
                     <button class="btn btn-info" @click="editOrder(order)">Edit</button>
+                    
                     <button class="btn btn-danger" @click="deleteOrder(order)">Delete</button>
+                        
+                    
+                  
                   </td>
                 </tr>
               </tbody>
@@ -71,6 +77,8 @@
             userID: null,
             prodID: null,
             quantity: null,
+            amount:null,
+            orderDate:null,
             Total:null,
           },
           orders: []
@@ -101,13 +109,17 @@
             orderID: null,
             userID: null,
             prodID: null,
-            quantity: null
+            quantity: null,
+            amount:null,
+            orderDate:null
           };
         },
- 
+  thankYouMessage() {
+          alert("Thank you for purchasing!");
+        }
       }
     };
-    </script>
+    </script> 
     
     <style scoped>
     .app {
@@ -157,11 +169,13 @@
     .btn-info {
       background-color: #17a2b8;
       color: #fff;
+     
     }
     
     .btn-danger {
       background-color: #dc3545;
       color: #fff;
+      
     }
     
     input[type="text"],
@@ -172,6 +186,9 @@
       box-sizing: border-box;
     }
     </style>
-    
+     
 
     
+
+
+     
