@@ -65,9 +65,6 @@
           <button class="btn btn-success" @click="displayThankYou">Thank You</button>
         </div>
         <div class="col-md-4">
-          <button class="btn btn-primary" @click="placeOrder">Place Order</button>
-        </div>
-        <div class="col-md-4">
           <button class="btn btn-info float-right" @click="addOrder">Add Order</button>
         </div>
       </div>
@@ -116,9 +113,7 @@ export default {
     displayThankYou() {
       alert('Thank you for your purchase!');
     },
-    placeOrder() {
-      alert('Your order has been placed!');
-    },
+
     addOrder() {
       this.$store.dispatch("addOrder", this.orderPayload);
       alert('New order added!');
@@ -141,4 +136,12 @@ export default {
 }
 
 
-</style>
+</style> -->
+
+
+
+
+
+
+
+
