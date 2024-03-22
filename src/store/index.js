@@ -14,7 +14,7 @@ export default createStore({
     user: null,
     products: null,
     product: null,
-    orders:[],
+    orders:null,
   },
   getters: {},
   mutations: {
@@ -96,7 +96,7 @@ export default createStore({
           context.commit('setUser', result)
         } else {
           sweet({
-            title: 'Retrieving a single user',
+            title: 'Retrieve a single user',
             text: 'User was not found',
             icon: "info",
             timer: 2000
@@ -105,7 +105,7 @@ export default createStore({
       } catch (e) {
         sweet({
           title: 'Error',
-          text: 'A user was not found.',
+          text: ' user not found.',
           icon: "error",
           timer: 2000
         })
@@ -142,7 +142,7 @@ export default createStore({
         let { msg } = (await axios.delete(`${lifeURL}users/delete/${id}`)).data;
 
         if (msg) {
-          // If successful, fetch updated product list
+          
           context.dispatch('fetchUsers');
           sweet({
             title: 'Delete User',
@@ -160,37 +160,7 @@ export default createStore({
         });
       }
     },
-    // async login(context, payload) {
-    //   try {
-    //     const { msg, token, result } = (await axios.post(`${lifeURL}users/login`, payload)).data
-    //     if (result) {
-    //       context.commit('setUser', { msg, result })
-    //       AuthenticateUser.applyToken(token)
-    //       sweet({
-    //         title: msg,
-    //         text: `Welcome back,
-    //       ${result?.firstName} ${result?.lastName}`,
-    //         icon: "success",
-    //         timer: 2000
-    //       })
-    //       router.push({ name: 'home' })
-    //     } else {
-    //       sweet({
-    //         title: 'info',
-    //         text: msg,
-    //         icon: "info",
-    //         timer: 2000
-    //       })
-    //     }
-    //   } catch (e) {
-    //     sweet({
-    //       title: 'Error',
-    //       text: 'Failed to login.',
-    //       icon: "error",
-    //       timer: 2000
-    //     })
-    //   }
-    // },
+   
     async fetchProducts(context) {
       try {
         let { results } = (await axios.get(`${lifeURL}products`)).data
@@ -214,8 +184,8 @@ export default createStore({
           context.commit('setProduct', result)
         } else {
           sweet({
-            title: 'Retrieving a single product',
-            text: 'Product was not found',
+            title: 'Retrieve a single product',
+            text: 'Product not found',
             icon: "info",
             timer: 2000
           })
@@ -332,7 +302,6 @@ export default createStore({
         
           context.commit("setUser", { msg, result });
           cookies.set("LoggedUser", { token, msg, result });
-          // Authorization
           AuthenticateUser.applyToken(token);
           sweet({
             title: msg,
@@ -351,7 +320,7 @@ export default createStore({
           });
         }
       } catch (e) {
-        //'Please contact the administrator'
+        
         sweet({
           title: "Error",
           text: e.message,
@@ -360,63 +329,113 @@ export default createStore({
         });
       }
     },
-  // async fetchOrders(context) {
-  //   try {
-  //     let { results } = (await axios.get(`${lifeURL}orders`)).data;
-  //     console.log(results);
-  //     if (results) {
-  //       context.commit('setOrders', results);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching orders:', error);
-  //     sweet({
-  //       title: 'Error',
-  //       text: 'An error occurred when fetching orders.',
-  //       icon: "error",
-  //       timer: 2000
-  //     });
-  //   }
-  // },
-   
-  
-
-  async fetchOrders(context) {
-    try {
-      let { results } = (await axios.get(`${lifeURL}orders`)).data;
-      if (results) {
-        context.commit("setOrders", results);
+    async fetchOrders(context) {
+      try {
+        const response = await axios.get(`${lifeURL}orders`);
+        const { data } = response;
+        console.log(data);
+        if (data.results) {
+          context.commit('setOrders', data.results);
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+        sweet({
+          title: 'Error',
+          text: 'An error occurred when fetching orders.',
+          icon: "error",
+          timer: 2000
+        });
       }
-    } catch (e) {
-      sweet({
-        title: "Error",
-        text: "An error occurred when retrieving cart items.",
-        icon: "error",
-        timer: 2000,
-      });
-    }
-  },
-  async deleteOrders(context, orderID) {
-    try {
-      let { msg } = await axios.delete(`${lifeURL}orders/delete/${orderID}`);
-      context.dispatch("fetchOrders");
-      sweet({
-        title: 'Delete order',
-        text: msg,
-        icon:'success',
-        timer: 2000
-      });
-    } catch (e) {
-      sweet({
-        title: 'Error',
-        text: 'An error appeared when deleting an order.',
-        icon: 'error',
-        timer: 2000
-      });
-    }
-  }
-},
+    },
+    
+    async addOrder({ commit }, newOrder) {
+      try {
+        let response = await axios.post(`${lifeURL}orders/addOrder`, newOrder);
+        window.location.reload();
 
-
+        console.log('Add Order Response:', response);
+    
+        if (response.data && response.data.msg) {
+          commit('setOrders', response.data.msg);
+          sweet({
+            title: 'Add Order',
+            text: 'Order added successfully',
+            icon: 'success',
+            timer: 2000,
+          });
+        } else {
+          sweet({
+            title: 'Error',
+            text: 'Unexpected response from the server',
+            icon: 'error',
+            timer: 2000,
+          });
+        }
+      } catch (e) {
+        console.error('Error adding order:', e);
+        sweet({
+          title: 'Error',
+          text: 'An error occurred when adding an order.',
+          icon: 'error',
+          timer: 2000,
+        });
+      }
+    },
+    async deleteOrder(context, orderId) {
+      try {
+        const response = await axios.delete(`${lifeURL}orders/delete/${orderId}`);
+        const { msg } = response.data;
+        if (msg) {
+          context.dispatch("fetchOrders");
+          sweet({
+            title: 'Delete Order',
+            text: msg,
+            icon: 'success', 
+            timer: 2000
+          });
+        }
+      } catch (error) {
+        console.error('Error deleting order:', error);
+        sweet({
+          title: 'Error',
+          text: 'An error occurred when deleting an order.',
+          icon: 'error',
+          timer: 2000
+        });
+      }
+    }},
+    async updateOrder(context, payload) {
+      try {
+        const response = await axios.patch(`${lifeURL}orders/update/${payload.id}`, payload.data);
+    
+        if (response.data && response.data.msg) {
+          context.dispatch('fetchOrders');
+          sweet({
+            title: 'Update Orders',
+            text: response.data.msg,
+            icon: 'success',
+            timer: 2000,
+          });
+        } else {
+          console.error('Unexpected response structure:', response);
+          sweet({
+            title: 'Error',
+            text: 'Unexpected response from the server',
+            icon: 'error',
+            timer: 2000,
+          });
+        }
+      } catch (error) {
+        console.error('Order update error:', error);
+    
+        sweet({
+          title: 'Error',
+          text: 'An error occurred when updating a product.',
+          icon: 'error',
+          timer: 2000,
+        });
+      }
+    },
 
   modules: {}
 })

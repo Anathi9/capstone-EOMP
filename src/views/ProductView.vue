@@ -42,7 +42,7 @@ export default {
   methods: {
     addToCart() {
       
-     this.$router.push('/admin');
+     this.$router.push('/checkout');
     },
   },
   mounted() {

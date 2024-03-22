@@ -25,12 +25,27 @@
   </div>
   
 </div>
+</template> 
+<script>
+import Spinner from '@/components/Spinner.vue';
+export default {
+components:{
+Spinner
+},
+data() {
+        return{
+            loading:true,
+        };
+       },
+       mounted() {
+  setTimeout(() => {
+    this.loading = false;
+  }, 2000);
+},
+}
 
+</script>
 
-
-
-
-</template>                                                                                                   
   <style scoped>
      
       .navbar-brand {
@@ -62,7 +77,6 @@
           color:black;
       }
 
-    
       .content {
           padding: 40px;
           text-align: center;
@@ -71,8 +85,7 @@
       .img-container{
           width:100%;
       }
-      
-     
+
       .img {
 width: 250px;
 height: 250px;
@@ -138,31 +151,5 @@ to {
 h2{
   font-family:poppins sans-serif;
 }
-
   </style>
-
-
-
-<script>
-import Spinner from '@/components/Spinner.vue';
-export default {
-components:{
-Spinner
-},
-data() {
-        return{
-            loading:true,
-        };
-       },
-       mounted() {
-  setTimeout(() => {
-    this.loading = false;
-  }, 2000);
-},
-}
-
-</script>
-
-
-
 

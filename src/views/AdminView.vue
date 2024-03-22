@@ -1,5 +1,4 @@
 
-
  <template>
   <div class="app">
     <h3 class="user1 text-center">Users</h3>

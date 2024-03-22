@@ -49,10 +49,8 @@ export default {
         }
 }
 }
-  
   </script>
   
- 
   <style scoped>
   nav a:hover {
   border-bottom: 3px solid #34dbd8; 

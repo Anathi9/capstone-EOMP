@@ -1,41 +1,41 @@
 
-    <template>
-      <div class="app">
-        <div class="container">
-          <h2 class="text-center">Orders</h2>
-          <div class="order-inputs">
-            <label for="orderID">OrderID</label>
-            <input type="text" id="orderID" v-model="order.orderID" required>
-      
-            <label for="userID">UserID</label>
-            <input type="text" id="userID" v-model="order.userID" required>
-      
-            <label for="prodID">ProductID</label>
-            <input type="text" id="prodID" v-model="order.prodID" required>
-      
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" v-model="order.quantity" required>
-
-            <label for="quantity">Amount</label>
-            <input type="number" id="quantity" v-model="order.amount" required>
-
-            <label for="quantity">OrderDate</label>
-            <input type="number" id="quantity" v-model="order.orderDate" required>
-      
-            <button class="btn btn-success" @click="addOrder">Add Order</button>
-            <button class="btn btn-primary btn-action" @click="thankYouMessage">Thank You</button>
+<template>
+  <div class="App">
+    <h3 class="user1 text-center">Orders</h3>
+    <div class="container">
+      <div class="row">
+        <div class="modal" v-if="showModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Edit Cart Item</h5>
+                <button type="button" class="close" @click="closeModal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form @submit.prevent="updateOrder">
+                  <div class="form-group">
+                    <label for="editOrderID">OrderID:</label>
+                    <input type="text" class="form-control" id="editorderID" v-model="editedOrder.orderID">
+                  </div>
                   
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+              </div>
+            </div>
           </div>
-      
-          <div class="table-container mt-5">
+        </div>
+      </div>
+      <div class="row">
+        <div class="card">
+          <div class="card-body">
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>OrderID</th>
-                  <th>UserID</th>
-                  <th>ProductID</th>
-                  <th>Quantity</th>
-                  <th>Amount</th>
+                  <th>orderID</th>
+                  <th>userID</th>
+                  <th>prodID</th>
+                  <th>quantity</th>
+                  <th>amount</th>
                   <th>orderDate</th>
                   <th>Total</th>
                   <th>Action</th>
@@ -47,16 +47,12 @@
                   <td>{{ order.userID }}</td>
                   <td>{{ order.prodID }}</td>
                   <td>{{ order.quantity }}</td>
-                  <td>{{ order.amount }}</td>
+                  <td>R{{ order.amount }}</td>
                   <td>{{ order.orderDate }}</td>
-                  <td>{{ calculateTotal(order) }}</td>
+                  <td>R{{ order.Total }}</td>
                   <td>
-                    <button class="btn btn-info" @click="editOrder(order)">Edit</button>
-                    
-                    <button class="btn btn-danger" @click="deleteOrder(order)">Delete</button>
-                        
-                    
-                  
+                    <button class="btn btn-primary" @click="openEditModal(order)">Update</button>
+                    <button class="btn btn-danger" @click="deleteOrder(order.orderID)">Delete</button>
                   </td>
                 </tr>
               </tbody>
@@ -64,131 +60,85 @@
           </div>
         </div>
       </div>
-    </template>
-    
-   <script>
-    
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <button class="btn btn-success" @click="displayThankYou">Thank You</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary" @click="placeOrder">Place Order</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-info float-right" @click="addOrder">Add Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
-    export default {
-      data() {
-        return {
-          order: {
-            orderID: null,
-            userID: null,
-            prodID: null,
-            quantity: null,
-            amount:null,
-            orderDate:null,
-            Total:null,
-          },
-          orders: []
-        };
-      },
-      methods: {
-        
-        addOrder() {
-          const total = this.calculateTotal(this.order);
-          this.orders.push({ ...this.order, total });
-          this.resetOrder();
-        },
-        editOrder(order) {
-          this.order = { ...order };
-        },
-        deleteOrder(order) {
-          const index = this.orders.findIndex(o => o.orderID === order.orderID);
-          if (index !== -1) {
-            this.orders.splice(index, 1);
-          }
-        },
-        calculateTotal(order) {
-          const amount = 10; 
-          return order.quantity * amount;
-        },
-        resetOrder() {
-          this.order = {
-            orderID: null,
-            userID: null,
-            prodID: null,
-            quantity: null,
-            amount:null,
-            orderDate:null
-          };
-        },
-  thankYouMessage() {
-          alert("Thank you for purchasing!");
-        }
-      }
+<script>
+import { reactive } from 'vue';
+export default {
+  name: 'CheckoutView',
+  data() {
+    return {
+      showModal: false,
+      editedOrder: reactive({}),
     };
-    </script> 
-    
-    <style scoped>
-    .app {
-      background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
+  },
+  computed: {
+    orders() {
+      return this.$store.state.orders;
+    },
+  },
+  methods: {
+    openEditModal(order) {
+      this.editedOrder = JSON.parse(JSON.stringify(order)); 
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    async updateOrder() {
+      try {
+        await this.$store.dispatch('updateOrder', this.editedOrder);
+        this.showModal = false;
+      } catch (error) {
+        console.error('Error updating order:', error);
+      }
+    },
+    async deleteOrder(orderID) {
+      try {
+        await this.$store.dispatch('deleteOrder', orderID);
+      } catch (error) {
+        console.error('Error deleting order:', error);
+      }
+    },
+    displayThankYou() {
+      alert('Thank you for your purchase!');
+    },
+    placeOrder() {
+      alert('Your order has been placed!');
+    },
+    addOrder() {
+      this.$store.dispatch("addOrder", this.orderPayload);
+      alert('New order added!');
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    .order-inputs {
-      margin-bottom: 20px;
-    }
-    
-    .table-container {
-      overflow-x: auto;
-    }
-    
-    .table-bordered {
-      border: 1px solid #dee2e6;
-      border-collapse: collapse;
-      width: 100%;
-      text-align: center; 
-    }
-    
-    .table-bordered th,
-    .table-bordered td {
-      border: 1px solid #dee2e6;
-      padding: 8px;
-    }
-    
-    .table-bordered th {
-      background-color: #f8f9fa; 
-    }
-    
-    .btn {
-      padding: 8px 16px;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-    
-    .btn-success {
-      background-color: #28a745;
-      color: #fff;
-    }
-    
-    .btn-info {
-      background-color: #17a2b8;
-      color: #fff;
-     
-    }
-    
-    .btn-danger {
-      background-color: #dc3545;
-      color: #fff;
-      
-    }
-    
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin: 8px 0;
-      box-sizing: border-box;
-    }
-    </style>
-     
+  },
+  mounted() {
+    this.$store.dispatch('fetchOrders');
+  },
+};
+</script>
 
-    
+<style scoped>
+.App {
+  background-image: url('https://i.ibb.co/VDsQwDS/488896.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;   
+  padding: 80px;
+}
 
 
-     
+</style>
