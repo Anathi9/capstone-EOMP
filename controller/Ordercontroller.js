@@ -5,7 +5,7 @@ import { orders } from '../model/index.js';
 const orderRouter = express.Router();
 
 // Fetch all orders
-orderRouter.get('/:userID', (req, res) => {
+orderRouter.get('/', (req, res) => {
     const userID = req.params.userID;
     try {
         orders.fetchOrders(req, res, userID);
