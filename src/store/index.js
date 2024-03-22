@@ -15,6 +15,7 @@ export default createStore({
     products: null,
     product: null,
     orders:null,
+    // userprofile:null,
   },
   getters: {},
   mutations: {

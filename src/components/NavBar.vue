@@ -29,6 +29,9 @@
             <li  class="nav-item">
               <router-link :to="'/Login'" class="nav-link text-light">Login</router-link>
             </li>
+            <li  class="nav-item">
+              <router-link :to="'/userprofile'" class="nav-link text-light">Userprofile</router-link>
+            </li>
           </ul>
         </div>
       </div>
